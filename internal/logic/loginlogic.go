@@ -9,6 +9,7 @@ import (
 	"user_api/internal/svc"
 	"user_api/internal/types"
 
+	"github.com/kyirving/common_proto/user/userclient"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -26,8 +27,19 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 	}
 }
 
-func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.Response, err error) {
-	// todo: add your logic here and delete this line
+func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err error) {
+
+	res, err := l.svcCtx.UserRpcClient.Login(l.ctx, &userclient.LoginReq{
+		Username: req.Username,
+		Password: req.Password,
+	})
+	if err != nil {
+		return
+	}
+
+	resp = &types.LoginResp{
+		Token: res.Token,
+	}
 
 	return
 }
