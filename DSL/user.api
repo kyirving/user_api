@@ -1,0 +1,50 @@
+syntax = "v1"
+
+type LoginReq {
+	username string `json:"username"`
+	password string `json:"password"`
+}
+
+type RegisterReq {
+	username string `json:"username"`
+	password string `json:"password"`
+}
+
+type LogoutReq {
+	token string `json:"token"`
+}
+
+type RefreshTokenReq {
+	refresh_token string `json:"refresh_token"`
+}
+
+type LoginResp {
+	token          string `json:"token"`
+	expire         int64  `json:"expire"`
+	refresh_token  string `json:"refresh_token"`
+	refresh_expire int64  `json:"refresh_expire"`
+}
+
+type Response {
+	code int    `json:"code"`
+	msg  string `json:"msg"`
+	data string `json:"data"`
+}
+
+@server (
+	prefix: "/oauth"
+)
+service User {
+	@handler Login
+	post /login (LoginReq) returns (Response)
+
+	@handler Register
+	post /register (RegisterReq) returns (Response)
+
+	@handler Logout
+	post /logout (LogoutReq) returns (Response)
+
+	@handler RefreshToken
+	post /refresh_token (RefreshTokenReq) returns (LoginResp)
+}
+
