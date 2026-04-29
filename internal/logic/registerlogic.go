@@ -5,10 +5,12 @@ package logic
 
 import (
 	"context"
+	"fmt"
 
 	"user_api/internal/svc"
 	"user_api/internal/types"
 
+	"github.com/kyirving/common_proto/user/user"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -28,6 +30,23 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 
 func (l *RegisterLogic) Register(req *types.RegisterReq) (resp *types.Response, err error) {
 	// todo: add your logic here and delete this line
+	result, err := l.svcCtx.UserRpcClient.Register(l.ctx, &user.RegisterReq{
+		Username: req.Username,
+		Password: req.Password,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	resp = &types.Response{
+		Code: 0,
+		Msg:  "success",
+	}
+
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println(result)
 
 	return
 }

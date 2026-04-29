@@ -1,6 +1,7 @@
 Name: User
 Host: 0.0.0.0
 Port: 8888
+Timeout: 100000 # 服务超时时间，单位毫秒 10s = 100000
 
 
 # RPC 服务配置
@@ -9,5 +10,5 @@ UserRpc:
     Hosts:
     - 127.0.0.1:2379
     Key: user.rpc # RPC 服务名称 务必和 user_rpc/etc/user.yaml 中的 Name 一致
-  Timeout: 2000
+  Timeout: 100000 # RPC 服务超时时间，单位毫秒 10s = 100000
   KeepAliveTime: 20s
