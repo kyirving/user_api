@@ -37,9 +37,14 @@ func (l *LoginLogic) Login(req *types.LoginReq) (resp *types.LoginResp, err erro
 		return
 	}
 
-	resp = &types.LoginResp{
-		Token: res.Token,
+	resp = &types.LoginResp{}
+	resp.Code = 200
+	resp.Msg = "success"
+	resp.Data = &types.LoginData{
+		Token:         res.Token,
+		Expire:        res.Expire,
+		RefreshToken:  res.RefreshToken,
+		RefreshExpire: res.RefreshExpire,
 	}
-
-	return
+	return resp, nil
 }

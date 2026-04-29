@@ -3,16 +3,26 @@
 
 package types
 
+type BaseResp struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+}
+
+type LoginData struct {
+	Token         string `json:"token"`
+	Expire        int64  `json:"expire"`
+	RefreshToken  string `json:"refresh_token"`
+	RefreshExpire int64  `json:"refresh_expire"`
+}
+
 type LoginReq struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
 type LoginResp struct {
-	Token          string `json:"token"`
-	Expire         int64  `json:"expire"`
-	Refresh_token  string `json:"refresh_token"`
-	Refresh_expire int64  `json:"refresh_expire"`
+	BaseResp
+	Data *LoginData `json:"data"`
 }
 
 type LogoutReq struct {

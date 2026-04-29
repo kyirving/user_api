@@ -1,5 +1,7 @@
 syntax = "v1"
 
+import "base.api"
+
 type LoginReq {
 	username string `json:"username"`
 	password string `json:"password"`
@@ -18,11 +20,16 @@ type RefreshTokenReq {
 	refresh_token string `json:"refresh_token"`
 }
 
+type LoginData {
+	Token         string `json:"token"`
+	Expire        int64  `json:"expire"`
+	RefreshToken  string `json:"refresh_token"`
+	RefreshExpire int64  `json:"refresh_expire"`
+}
+
 type LoginResp {
-	token          string `json:"token"`
-	expire         int64  `json:"expire"`
-	refresh_token  string `json:"refresh_token"`
-	refresh_expire int64  `json:"refresh_expire"`
+	BaseResp
+	Data *LoginData `json:"data"`
 }
 
 type Response {
